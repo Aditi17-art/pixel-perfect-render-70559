@@ -45,6 +45,7 @@ function SettingsPage() {
     setNewPassword("");
     setConfirm("");
     toast.success("Password updated");
+    return undefined;
   }
 
   async function signOut() {
