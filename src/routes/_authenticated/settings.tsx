@@ -31,7 +31,7 @@ function SettingsPage() {
   const [confirm, setConfirm] = useState("");
   const [saving, setSaving] = useState(false);
 
-  async function changePassword() {
+  async function changePassword(): Promise<unknown> {
     if (newPassword.length < 8) return toast.error("Use at least 8 characters.");
     if (newPassword !== confirm) return toast.error("New passwords do not match.");
     setSaving(true);
