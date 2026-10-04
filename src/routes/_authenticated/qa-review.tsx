@@ -102,9 +102,15 @@ function QaReviewPage() {
   const [result, setResult] = useState<QaReview | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  async function pick(file: File, set: (v: string) => void) {
-    if (!file.type.startsWith("image/")) return toast.error("Please choose a PNG, JPG or WEBP image.");
-    if (file.size > 10 * 1024 * 1024) return toast.error("Please choose an image under 10 MB.");
+  async function pick(file: File, set: (v: string) => void): Promise<void> {
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose a PNG, JPG or WEBP image.");
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Please choose an image under 10 MB.");
+      return;
+    }
     set(await readDataUrl(file));
     setResult(null);
   }
