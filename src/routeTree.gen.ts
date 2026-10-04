@@ -16,6 +16,7 @@ import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedAboutRouteImport } from './routes/_authenticated/about'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedQaReviewRouteImport } from './routes/_authenticated/qa-review'
 import { Route as AuthenticatedResearchRouteImport } from './routes/_authenticated/research'
 import { Route as AuthenticatedResultsRouteImport } from './routes/_authenticated/results'
 import { Route as AuthenticatedSegmentationRouteImport } from './routes/_authenticated/segmentation'
@@ -55,6 +56,11 @@ const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedQaReviewRoute = AuthenticatedQaReviewRouteImport.update({
+  id: '/qa-review',
+  path: '/qa-review',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedResearchRoute = AuthenticatedResearchRouteImport.update({
   id: '/research',
   path: '/research',
@@ -84,6 +90,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AuthenticatedAboutRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/qa-review': typeof AuthenticatedQaReviewRoute
   '/research': typeof AuthenticatedResearchRoute
   '/results': typeof AuthenticatedResultsRoute
   '/segmentation': typeof AuthenticatedSegmentationRoute
@@ -96,6 +103,7 @@ export interface FileRoutesByTo {
   '/about': typeof AuthenticatedAboutRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/profile': typeof AuthenticatedProfileRoute
+  '/qa-review': typeof AuthenticatedQaReviewRoute
   '/research': typeof AuthenticatedResearchRoute
   '/results': typeof AuthenticatedResultsRoute
   '/segmentation': typeof AuthenticatedSegmentationRoute
@@ -110,6 +118,7 @@ export interface FileRoutesById {
   '/_authenticated/about': typeof AuthenticatedAboutRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/qa-review': typeof AuthenticatedQaReviewRoute
   '/_authenticated/research': typeof AuthenticatedResearchRoute
   '/_authenticated/results': typeof AuthenticatedResultsRoute
   '/_authenticated/segmentation': typeof AuthenticatedSegmentationRoute
@@ -124,6 +133,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/dashboard'
     | '/profile'
+    | '/qa-review'
     | '/research'
     | '/results'
     | '/segmentation'
@@ -136,6 +146,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/dashboard'
     | '/profile'
+    | '/qa-review'
     | '/research'
     | '/results'
     | '/segmentation'
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/_authenticated/about'
     | '/_authenticated/dashboard'
     | '/_authenticated/profile'
+    | '/_authenticated/qa-review'
     | '/_authenticated/research'
     | '/_authenticated/results'
     | '/_authenticated/segmentation'
@@ -213,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProfileRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/qa-review': {
+      id: '/_authenticated/qa-review'
+      path: '/qa-review'
+      fullPath: '/qa-review'
+      preLoaderRoute: typeof AuthenticatedQaReviewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/research': {
       id: '/_authenticated/research'
       path: '/research'
@@ -248,6 +267,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAboutRoute: typeof AuthenticatedAboutRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedQaReviewRoute: typeof AuthenticatedQaReviewRoute
   AuthenticatedResearchRoute: typeof AuthenticatedResearchRoute
   AuthenticatedResultsRoute: typeof AuthenticatedResultsRoute
   AuthenticatedSegmentationRoute: typeof AuthenticatedSegmentationRoute
@@ -258,6 +278,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAboutRoute: AuthenticatedAboutRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedQaReviewRoute: AuthenticatedQaReviewRoute,
   AuthenticatedResearchRoute: AuthenticatedResearchRoute,
   AuthenticatedResultsRoute: AuthenticatedResultsRoute,
   AuthenticatedSegmentationRoute: AuthenticatedSegmentationRoute,
