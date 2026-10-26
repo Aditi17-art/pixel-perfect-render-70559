@@ -61,9 +61,8 @@ function SegmentationPage() {
     if (!file) return;
     setStage("processing");
     try {
-      setStep("Preparing image…");
-      const result = await segmentCtImage(file);
       setStep("Running segmentation model…");
+      const result = await segmentCtImage(file);
 
       const { data: userData } = await supabase.auth.getUser();
       const userId = userData.user?.id;
@@ -88,7 +87,7 @@ function SegmentationPage() {
         original_path: originalPath,
         mask_path: maskPath,
         status: "completed",
-        notes: result.mode === "demo" ? "Demo segmentation" : "Model segmentation",
+        notes: "Model segmentation",
       });
       if (insert.error) throw insert.error;
 
@@ -201,19 +200,22 @@ function SegmentationPage() {
               fileName={file?.name ?? "ct-scan.png"}
             />
           </div>
-          <AnalysisSummary />
+          <AnalysisSummary durationMs={result.durationMs} />
         </section>
       ) : null}
     </AppShell>
   );
 }
 
-export function AnalysisSummary() {
-  const rows = [
+export function AnalysisSummary({ durationMs }: { durationMs?: number }) {
+  const rows: [string, string][] = [
     ["Status", "Segmentation Completed"],
-    ["Model", "Deep Learning Segmentation Model"],
-    ["Processing Time", "Demo Processing"],
-    ["Research Metrics", "Not available in demo"],
+    ["Model", "SpineSeg Segmentation Model"],
+    [
+      "Processing Time",
+      durationMs != null ? `${(durationMs / 1000).toFixed(1)} s` : "—",
+    ],
+    ["Research Metrics", "Available once ground-truth labels are provided"],
   ];
   return (
     <div className="card-soft mt-6 p-6">
