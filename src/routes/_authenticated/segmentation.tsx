@@ -210,7 +210,7 @@ function SegmentationPage() {
   );
 }
 
-export function AnalysisSummary({ durationMs }: { durationMs?: number }) {
+export function AnalysisSummary({ durationMs }: { durationMs?: number | undefined }) {
   const rows: [string, string][] = [
     ["Status", "Segmentation Completed"],
     ["Model", "SpineSeg Segmentation Model"],
