@@ -38,6 +38,7 @@ function SegmentationPage() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [maskUrl, setMaskUrl] = useState<string | null>(null);
+  const [durationMs, setDurationMs] = useState<number | null>(null);
   const [stage, setStage] = useState<Stage>("idle");
   const [step, setStep] = useState("");
 
@@ -54,6 +55,7 @@ function SegmentationPage() {
     setFile(selected);
     setPreviewUrl(URL.createObjectURL(selected));
     setMaskUrl(null);
+    setDurationMs(null);
     setStage("idle");
   }
 
@@ -92,6 +94,7 @@ function SegmentationPage() {
       if (insert.error) throw insert.error;
 
       setMaskUrl(result.maskDataUrl);
+      setDurationMs(result.durationMs);
       setStage("done");
       await queryClient.invalidateQueries({ queryKey: ["analyses"] });
       toast.success("Segmentation completed and saved");
@@ -200,14 +203,14 @@ function SegmentationPage() {
               fileName={file?.name ?? "ct-scan.png"}
             />
           </div>
-          <AnalysisSummary durationMs={result.durationMs} />
+          <AnalysisSummary durationMs={durationMs ?? undefined} />
         </section>
       ) : null}
     </AppShell>
   );
 }
 
-export function AnalysisSummary({ durationMs }: { durationMs?: number }) {
+export function AnalysisSummary({ durationMs }: { durationMs?: number | undefined }) {
   const rows: [string, string][] = [
     ["Status", "Segmentation Completed"],
     ["Model", "SpineSeg Segmentation Model"],
